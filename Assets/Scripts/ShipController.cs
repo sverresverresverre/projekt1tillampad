@@ -23,13 +23,29 @@ public class ShipController : MonoBehaviour
 
     [SerializeField]
     int maxHealth = 10;
-    int currentHealth;
+    public int currentHealth;
 
     [SerializeField]
     Slider hpBar;
 
     [SerializeField]
+    int shieldMaxHealth = 5;
+    int ShieldCurrentHealth;
+
+    [SerializeField]
+    Slider shieldBar;
+
+    [SerializeField]
     TMP_Text pointsText;
+
+    [SerializeField]
+    TMP_Text shieldRegen;
+
+    [SerializeField]
+    float timeBetweenShield;
+
+    [SerializeField]
+    float timeSinceLastShield;
 
     public static int points = 0;
 
@@ -39,11 +55,27 @@ public class ShipController : MonoBehaviour
         hpBar.maxValue = maxHealth;
         hpBar.value = currentHealth;
 
+        ShieldCurrentHealth = shieldMaxHealth;
+        shieldBar.maxValue = shieldMaxHealth;
+        shieldBar.value = ShieldCurrentHealth;
+
         AddPoints(0);
         points = 0;
 
         pointsText.text = points.ToString();
     }
+
+    public void Damage()
+    {
+        currentHealth--;
+        hpBar.value = currentHealth;
+
+        if (currentHealth <= 0)
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+    
 
     // Update is called once per frame
     void Update()
@@ -58,10 +90,26 @@ public class ShipController : MonoBehaviour
 
         timeSinceLastShot += Time.deltaTime;
 
+        timeSinceLastShield += Time.deltaTime;
+
         if (Input.GetAxisRaw("Fire1") > 0 && timeSinceLastShot > timeBetweenShots)
         {
             timeSinceLastShot = 0;
             Instantiate(boltPrefab, gunPosition.position, Quaternion.identity);
+        }
+
+        if (timeSinceLastShield > timeBetweenShield)
+        {
+            ShieldCurrentHealth++;
+
+            shieldBar.value = ShieldCurrentHealth;
+
+            timeSinceLastShield = 0;
+
+            if (ShieldCurrentHealth >= 5)
+            {
+                ShieldCurrentHealth = 5;
+            }
         }
 
         if (points >= 5000)
@@ -76,12 +124,12 @@ public class ShipController : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            currentHealth--;
-            hpBar.value = currentHealth;
+            ShieldCurrentHealth--;
+            shieldBar.value = ShieldCurrentHealth;
 
-            if (currentHealth <= 0)
+            if(ShieldCurrentHealth < 0)
             {
-                SceneManager.LoadScene(2);
+                Damage();
             }
         }
     }

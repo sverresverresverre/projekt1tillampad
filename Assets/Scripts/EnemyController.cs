@@ -47,14 +47,23 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        Destroy(this.gameObject);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         ShipController controller = player.GetComponent<ShipController>();
 
-        controller.AddPoints(250);  
-    }
+        if(other.tag == "Player" || other.tag == "Bullet")
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
 
+            controller.AddPoints(250);
+        }
+
+        if(other.tag == "Ground")
+        {
+            print("Ouch!");
+            controller.Damage();
+        }  
+    }
 }

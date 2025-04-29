@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 95303127572388248}
   - component: {fileID: 993937384929918847}
   - component: {fileID: 5654618784720144474}
+  - component: {fileID: -8416516855794567282}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -120,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbac9071c1045844ba19fa6e7fa24d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
   explosionPrefab: {fileID: 1052859802758272, guid: 7e5c5b1c1b18764459c69710c7dc4adc,
     type: 3}
 --- !u!58 &5654618784720144474
@@ -158,3 +158,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &-8416516855794567282
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455718659814362}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 2
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
